@@ -23,5 +23,6 @@ namespace HotelResAPI.Models
 
         //Navprops
         public ICollection<Room> Rooms { get; set; }
+        public ICollection<HotelImage> Images { get; set; }
     }
 }
