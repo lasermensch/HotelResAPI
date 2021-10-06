@@ -17,13 +17,11 @@ namespace HotelResAPI.Models
         public int Size { get; set; }
         [Required]
         public int Price { get; set; }
-        public int Rating { get; set; }
-        [Required]
-        public int NrOfVotes { get; set; } = 0;
+        
 
         //Navprops
         public Hotel Hotel { get; set; }
         public ICollection<Reservation> Reservations { get; set; }
-        public ICollection<RoomImage> Images { get; set; }
+        
     }
 }

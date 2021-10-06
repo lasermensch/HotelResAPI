@@ -22,7 +22,14 @@ namespace HotelResAPI.Models
         [DataType(DataType.Date)]
         public DateTime EndDate { get; set; }
         [Required]
-        public byte Addons { get; set; }
+        public bool IncludeTransport { get; set; }
+        [Required]
+        public bool IncludePool { get; set; }
+        [Required]
+        public bool IncludeBreakfast { get; set; }
+        [Required]
+        public bool IncludeAll { get; set; }
+
 
         //Navprops
         public User User { get; set; }

@@ -7,11 +7,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using HotelResAPI.Data;
 using HotelResAPI.Models;
+using Microsoft.AspNetCore.Authorization;
+using HotelResAPI.Services;
 
 namespace HotelResAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [UserAuth]
     public class ReservationsController : ControllerBase
     {
         private readonly HotelResDbContext _context;
@@ -21,11 +24,15 @@ namespace HotelResAPI.Controllers
             _context = context;
         }
 
-        // GET: api/Reservations
+        // GET: api/Reservations/
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Reservation>>> GetReservations()
         {
-            return await _context.Reservations.ToListAsync();
+            string userId = HttpContext.Items["extractId"].ToString();
+
+            List<Reservation> usersReservations = await _context.Reservations.Where(r => r.UserId.ToString() == userId).ToListAsync();
+
+            return usersReservations;
         }
 
         // GET: api/Reservations/5
@@ -34,10 +41,12 @@ namespace HotelResAPI.Controllers
         {
             var reservation = await _context.Reservations.FindAsync(id);
 
+            
             if (reservation == null)
-            {
                 return NotFound();
-            }
+            
+            if (reservation.UserId != Guid.Parse(HttpContext.Items["extractId"].ToString()))
+                return Forbid();
 
             return reservation;
         }
@@ -47,6 +56,8 @@ namespace HotelResAPI.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutReservation(Guid id, Reservation reservation)
         {
+            if (reservation.UserId != Guid.Parse(HttpContext.Items["extractId"].ToString()))
+                return Forbid();
             if (id != reservation.ReservationId)
             {
                 return BadRequest();

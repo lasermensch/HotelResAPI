@@ -7,5 +7,6 @@ namespace HotelResAPI.Services
 {
     public class UserAuthService
     {
+
     }
 }

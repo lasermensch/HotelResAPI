@@ -83,5 +83,22 @@ namespace HotelResAPI.Services
             }
             return UTF8Encoding.UTF8.GetString(resultArray);
         }
+        public static string Hasher(string password, string salt)
+        {
+            SHA256Managed sHA256Managed = new SHA256Managed();
+            byte[] bytes = Encoding.UTF8.GetBytes(password + salt);
+            byte[] hash = sHA256Managed.ComputeHash(bytes);
+            var compHash = Convert.ToBase64String(hash);
+            return compHash;
+        }
+        public static string getSalt()
+        {
+            var random = new RNGCryptoServiceProvider();
+            int maxLength = 16;
+            byte[] salt = new byte[maxLength];
+            random.GetNonZeroBytes(salt);
+
+            return Convert.ToBase64String(salt);
+        }
     }
 }

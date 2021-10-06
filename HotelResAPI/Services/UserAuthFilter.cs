@@ -47,7 +47,7 @@ namespace HotelResAPI.Services
 
                 var token = handler.ReadJwtToken(authHeader.Remove(0, 7));
 
-                int? now = new JwtSecurityToken(expires: DateTime.Now).Payload.Exp; //Enklaste sättet jag fann.
+                int? now = new JwtSecurityToken(expires: DateTime.Now).Payload.Exp; //Enklaste sättet jag funnit.
                 if (token.Payload.Exp < now) //Kollar att token inte har gått ut...
                     filterContext.Result = new StatusCodeResult(403);
 
@@ -57,13 +57,13 @@ namespace HotelResAPI.Services
                 if (u == null)
                     filterContext.Result = new StatusCodeResult(403);
 
-                //filterContext.HttpContext.Items["extractId"] = id; //För att kunna komma åt det aktuella user-id direkt från filtret...
-
+                filterContext.HttpContext.Items["extractId"] = id; //För att kunna komma åt det aktuella user-id direkt från filtret...
+                
+                filterContext.Result = new JsonResult(token);
             }
             catch(Exception ex)
             {
                 Debug.WriteLine(ex.Message);
-
                 filterContext.Result = new StatusCodeResult(403);
             }
         }

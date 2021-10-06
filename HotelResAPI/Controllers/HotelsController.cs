@@ -7,11 +7,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using HotelResAPI.Data;
 using HotelResAPI.Models;
+using Microsoft.AspNetCore.Authorization;
+using HotelResAPI.Services;
 
 namespace HotelResAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [UserAuth]
     public class HotelsController : ControllerBase
     {
         private readonly HotelResDbContext _context;
@@ -21,11 +24,13 @@ namespace HotelResAPI.Controllers
             _context = context;
         }
 
+        
         // GET: api/Hotels
+        [AllowAnonymous]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Hotel>>> GetHotels()
         {
-            return await _context.Hotels.ToListAsync();
+            return await _context.Hotels.Include(hotel=>hotel.Images).Include(hotel=>hotel.Rooms).ToListAsync();
         }
 
         // GET: api/Hotels/5

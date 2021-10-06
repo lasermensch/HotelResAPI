@@ -20,6 +20,12 @@ namespace HotelResAPI.Models
         [Required]
         public string PhoneNr { get; set; }
         public string WebPage { get; set; }
+        [Required]
+        public double Rating { get; set; } = 0;
+        [Required]
+        public int NrOfVotes { get; set; } = 0;
+
+
 
         //Navprops
         public ICollection<Room> Rooms { get; set; }

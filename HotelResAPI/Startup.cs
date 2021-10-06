@@ -8,13 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace HotelResAPI
 {
@@ -31,8 +27,11 @@ namespace HotelResAPI
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllers();
+            //services.AddControllers();
             services.AddDbContext<HotelResDbContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
+            services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.NullValueHandling = NullValueHandling.Ignore);
 
             services.AddCors(opt => opt.AddPolicy("CorsPolicy", builder => builder
                 .AllowAnyOrigin()
@@ -53,7 +52,7 @@ namespace HotelResAPI
                             ValidateAudience = false,
                         };
                     });
-            
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

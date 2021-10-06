@@ -7,11 +7,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using HotelResAPI.Data;
 using HotelResAPI.Models;
+using HotelResAPI.Services;
 
 namespace HotelResAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [UserAuth]
     public class RoomsController : ControllerBase
     {
         private readonly HotelResDbContext _context;

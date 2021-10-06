@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace HotelResAPI.Migrations
 {
-    public partial class Init : Migration
+    public partial class ReInit : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -16,7 +16,9 @@ namespace HotelResAPI.Migrations
                     Adress = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PhoneNr = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    WebPage = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    WebPage = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Rating = table.Column<double>(type: "float", nullable: false),
+                    NrOfVotes = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -33,7 +35,6 @@ namespace HotelResAPI.Migrations
                     Adress = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PhoneNr = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Salt = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
@@ -43,15 +44,32 @@ namespace HotelResAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "HotelImage",
+                columns: table => new
+                {
+                    ImageId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    HotelId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Uri = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_HotelImage", x => x.ImageId);
+                    table.ForeignKey(
+                        name: "FK_HotelImage_Hotels_HotelId",
+                        column: x => x.HotelId,
+                        principalTable: "Hotels",
+                        principalColumn: "HotelId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Rooms",
                 columns: table => new
                 {
                     RoomId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     HotelId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Size = table.Column<int>(type: "int", nullable: false),
-                    Price = table.Column<int>(type: "int", nullable: false),
-                    Rating = table.Column<int>(type: "int", nullable: false),
-                    NrOfVotes = table.Column<int>(type: "int", nullable: false)
+                    Price = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -73,7 +91,10 @@ namespace HotelResAPI.Migrations
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    addons = table.Column<byte>(type: "tinyint", nullable: false)
+                    IncludeTransport = table.Column<bool>(type: "bit", nullable: false),
+                    IncludePool = table.Column<bool>(type: "bit", nullable: false),
+                    IncludeBreakfast = table.Column<bool>(type: "bit", nullable: false),
+                    IncludeAll = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -93,6 +114,11 @@ namespace HotelResAPI.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_HotelImage_HotelId",
+                table: "HotelImage",
+                column: "HotelId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Reservations_RoomId",
                 table: "Reservations",
                 column: "RoomId");
@@ -110,6 +136,9 @@ namespace HotelResAPI.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "HotelImage");
+
             migrationBuilder.DropTable(
                 name: "Reservations");
 

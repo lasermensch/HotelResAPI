@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HotelResAPI.Migrations
 {
     [DbContext(typeof(HotelResDbContext))]
-    [Migration("20210924071503_Init")]
-    partial class Init
+    [Migration("20211006105558_ReInit")]
+    partial class ReInit
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -39,9 +39,15 @@ namespace HotelResAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("NrOfVotes")
+                        .HasColumnType("int");
+
                     b.Property<string>("PhoneNr")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Rating")
+                        .HasColumnType("float");
 
                     b.Property<string>("WebPage")
                         .HasColumnType("nvarchar(max)");
@@ -49,6 +55,25 @@ namespace HotelResAPI.Migrations
                     b.HasKey("HotelId");
 
                     b.ToTable("Hotels");
+                });
+
+            modelBuilder.Entity("HotelResAPI.Models.HotelImage", b =>
+                {
+                    b.Property<Guid>("ImageId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("HotelId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Uri")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ImageId");
+
+                    b.HasIndex("HotelId");
+
+                    b.ToTable("HotelImage");
                 });
 
             modelBuilder.Entity("HotelResAPI.Models.Reservation", b =>
@@ -60,6 +85,18 @@ namespace HotelResAPI.Migrations
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<bool>("IncludeAll")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IncludeBreakfast")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IncludePool")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IncludeTransport")
+                        .HasColumnType("bit");
+
                     b.Property<Guid>("RoomId")
                         .HasColumnType("uniqueidentifier");
 
@@ -68,9 +105,6 @@ namespace HotelResAPI.Migrations
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<byte>("addons")
-                        .HasColumnType("tinyint");
 
                     b.HasKey("ReservationId");
 
@@ -90,13 +124,7 @@ namespace HotelResAPI.Migrations
                     b.Property<Guid>("HotelId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("NrOfVotes")
-                        .HasColumnType("int");
-
                     b.Property<int>("Price")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Rating")
                         .HasColumnType("int");
 
                     b.Property<int>("Size")
@@ -143,13 +171,20 @@ namespace HotelResAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("UserId");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("HotelResAPI.Models.HotelImage", b =>
+                {
+                    b.HasOne("HotelResAPI.Models.Hotel", "Hotel")
+                        .WithMany("Images")
+                        .HasForeignKey("HotelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Hotel");
                 });
 
             modelBuilder.Entity("HotelResAPI.Models.Reservation", b =>
@@ -184,6 +219,8 @@ namespace HotelResAPI.Migrations
 
             modelBuilder.Entity("HotelResAPI.Models.Hotel", b =>
                 {
+                    b.Navigation("Images");
+
                     b.Navigation("Rooms");
                 });
 

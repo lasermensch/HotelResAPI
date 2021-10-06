@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -21,7 +22,8 @@ namespace HotelResAPI
         {
             string json = File.ReadAllText(@"appsettings.json");
             JObject jo = JObject.Parse(json);
-            AppSettingsSingleton.Instance = JsonConvert.DeserializeObject<AppSettingsSingleton>(jo["Appsettings"].ToString());
+            AppSettingsSingleton.Instance = new();
+            AppSettingsSingleton.Instance = JsonConvert.DeserializeObject<AppSettingsSingleton>(jo["AppSettings"].ToString());
 
             var host = CreateHostBuilder(args).Build();
             using (var scope = host.Services.CreateScope())
@@ -36,8 +38,7 @@ namespace HotelResAPI
                 }
                 catch (Exception epicFail)
                 {
-                    var logger = services.GetRequiredService<ILogger<Program>>();
-                    logger.LogError(epicFail, "Fel uppstod när databasen skulle seedas.");
+                    Debug.WriteLine(epicFail.Message);
                 }
             }
             host.Run();
