@@ -29,7 +29,7 @@ namespace HotelResAPI.Data
                 HotelImage[] hotelImages =
                 {
                     new HotelImage { HotelId = hotels[0].HotelId, ImageId= Guid.NewGuid(), Uri="https://cdn.pixabay.com/photo/2014/07/10/17/17/hotel-389256_960_720.jpg" },
-                    new HotelImage { HotelId = hotels[0].HotelId, ImageId= Guid.NewGuid(), Uri="https://pixabay.com/sv/photos/handflatan-atlantis-hotell-dubai-962785/" },
+                    new HotelImage { HotelId = hotels[0].HotelId, ImageId= Guid.NewGuid(), Uri="https://cdn.pixabay.com/photo/2015/09/28/21/32/the-palm-962785_960_720.jpg" },
                     new HotelImage { HotelId = hotels[0].HotelId, ImageId= Guid.NewGuid(), Uri="https://cdn.pixabay.com/photo/2015/09/21/09/53/villa-cortine-palace-949547_960_720.jpg" },
                     new HotelImage { HotelId = hotels[0].HotelId, ImageId= Guid.NewGuid(), Uri="https://cdn.pixabay.com/photo/2018/10/01/00/52/roof-top-pool-3715118_960_720.jpg" },
                     new HotelImage { HotelId = hotels[1].HotelId, ImageId= Guid.NewGuid(), Uri="https://cdn.pixabay.com/photo/2018/03/06/19/40/pool-3204359_960_720.jpg" },

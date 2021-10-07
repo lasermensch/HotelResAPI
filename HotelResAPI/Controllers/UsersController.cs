@@ -59,9 +59,10 @@ namespace HotelResAPI.Controllers
 
         // PUT: api/Users/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(Guid id, User user)
+        [HttpPut]
+        public async Task<IActionResult> PutUser(User user)
         {
+            Guid id = Guid.Parse(HttpContext.Items["extractId"].ToString());
             if (id != user.UserId)
             {
                 return BadRequest();
@@ -92,22 +93,23 @@ namespace HotelResAPI.Controllers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [AllowAnonymous]
         [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
+        public async Task<ActionResult> PostUser(User user)
         {
 
             if (user == null)
-                return BadRequest();
+                return BadRequest("user not posted");
 
             if (_context.Users.Any(u => u.Email == user.Email))
-                return BadRequest();
+                return BadRequest("email already registered");
 
             user.UserId = Guid.NewGuid();
             user.Salt = SecurityService.getSalt();
-
+            user.Password = SecurityService.Hasher(user.Password, user.Salt);
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetUser", new { id = user.UserId }, user);
+            return Ok();
+
         }
 
         // DELETE: api/Users/5
