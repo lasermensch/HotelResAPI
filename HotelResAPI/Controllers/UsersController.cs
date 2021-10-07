@@ -24,38 +24,51 @@ namespace HotelResAPI.Controllers
             _context = context;
         }
 
-        // GET: api/Users
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
-        {
-            return await _context.Users.ToListAsync();
-        }
+        // GET: api/Users/list
+        //[HttpGet("list")]
+        //public async Task<ActionResult<IEnumerable<User>>> GetUsers()
+        //{
+        //    return await _context.Users.ToListAsync();
+        //}
 
-        // GET: api/Users/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(Guid id)
+        // GET: api/Users/userfromtoken
+        [HttpGet("userfromtoken")]
+        public async Task<ActionResult<User>> GetUser()
         {
+            Guid id;
+            try 
+            { 
+                id = Guid.Parse(HttpContext.Items["extractId"].ToString()); 
+            }
+            catch 
+            {
+
+                return BadRequest();
+            }
+                
+
             var user = await _context.Users.FindAsync(id);
 
             if (user == null)
             {
                 return NotFound();
             }
-
+            user.Salt = ""; //Skicka inte tillbaka sådana hemligheter...
+            user.Password = "";
             return user;
         }
-        [HttpGet("userfromtoken")]
-        public async Task<ActionResult<User>> GetUserFromToken()
-        {
-            Guid id = Guid.Parse(HttpContext.Items["extractId"].ToString());
+        //[HttpGet("userfromtoken")]
+        //public async Task<ActionResult<User>> GetUserFromToken()
+        //{
+        //    Guid id = Guid.Parse(HttpContext.Items["extractId"].ToString());
 
-            User u = await _context.Users.FindAsync(id);
+        //    User u = await _context.Users.FindAsync(id);
 
-            if (u == null)
-                return NotFound();
+        //    if (u == null)
+        //        return NotFound();
 
-            return u;
-        }
+        //    return u;
+        //}
 
         // PUT: api/Users/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754

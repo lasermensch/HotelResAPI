@@ -59,7 +59,8 @@ namespace HotelResAPI.Services
 
                 filterContext.HttpContext.Items["extractId"] = id; //För att kunna komma åt det aktuella user-id direkt från filtret...
                 
-                filterContext.Result = new JsonResult(token);
+                //filterContext.Result = new JsonResult(token);
+                
             }
             catch(Exception ex)
             {
