@@ -29,7 +29,8 @@ namespace HotelResAPI.Models
         public bool IncludeBreakfast { get; set; }
         [Required]
         public bool IncludeAll { get; set; }
-
+        [Required]
+        public int TotalAmount { get; set; }
 
         //Navprops
         public User User { get; set; }
