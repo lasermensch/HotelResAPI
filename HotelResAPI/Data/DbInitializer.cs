@@ -5,6 +5,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Threading.Tasks;
 
 namespace HotelResAPI.Data
@@ -143,6 +144,11 @@ namespace HotelResAPI.Data
                     new Reservation{ReservationId=Guid.NewGuid(), StartDate=DateTime.Parse("2021-10-11"), EndDate=DateTime.Parse("2021-10-25"), RoomId=context.Hotels.AsEnumerable<Hotel>().ElementAt(0).Rooms.ElementAt(2).RoomId, UserId=context.Users.AsEnumerable<User>().ElementAt(2).UserId, IncludeAll=false, IncludeBreakfast=true, IncludePool=true, IncludeTransport=false },
                     new Reservation{ReservationId=Guid.NewGuid(), StartDate=DateTime.Parse("2021-10-18"), EndDate=DateTime.Parse("2021-10-25"), RoomId=context.Hotels.AsEnumerable<Hotel>().ElementAt(0).Rooms.ElementAt(1).RoomId, UserId=context.Users.AsEnumerable<User>().ElementAt(2).UserId, IncludeAll=false, IncludeBreakfast=true, IncludePool=true, IncludeTransport=false },
                     new Reservation{ReservationId=Guid.NewGuid(), StartDate=DateTime.Parse("2021-10-11"), EndDate=DateTime.Parse("2021-10-25"), RoomId=context.Hotels.AsEnumerable<Hotel>().ElementAt(0).Rooms.ElementAt(0).RoomId, UserId=context.Users.AsEnumerable<User>().ElementAt(2).UserId, IncludeAll=false, IncludeBreakfast=true, IncludePool=true, IncludeTransport=false },
+                    new Reservation{ReservationId=Guid.NewGuid(), StartDate=DateTime.Parse("2021-10-18"), EndDate=DateTime.Parse("2021-10-25"), RoomId=context.Hotels.AsEnumerable<Hotel>().ElementAt(0).Rooms.ElementAt(0).RoomId, UserId=context.Users.AsEnumerable<User>().FirstOrDefault(u=>u.Email == "sten.erik.sundberg@gmail.com").UserId, IncludeAll=false, IncludeBreakfast=true, IncludePool=true, IncludeTransport=false },
+                    new Reservation{ReservationId=Guid.NewGuid(), StartDate=DateTime.Parse("2021-10-18"), EndDate=DateTime.Parse("2021-10-25"), RoomId=context.Hotels.AsEnumerable<Hotel>().ElementAt(0).Rooms.ElementAt(1).RoomId, UserId=context.Users.AsEnumerable<User>().FirstOrDefault(u=>u.Email == "sten.erik.sundberg@gmail.com").UserId, IncludeAll=false, IncludeBreakfast=true, IncludePool=true, IncludeTransport=false },
+                    new Reservation{ReservationId=Guid.NewGuid(), StartDate=DateTime.Parse("2021-10-11"), EndDate=DateTime.Parse("2021-10-25"), RoomId=context.Hotels.AsEnumerable<Hotel>().ElementAt(0).Rooms.ElementAt(2).RoomId, UserId=context.Users.AsEnumerable<User>().FirstOrDefault(u=>u.Email == "sten.erik.sundberg@gmail.com").UserId, IncludeAll=false, IncludeBreakfast=true, IncludePool=true, IncludeTransport=false },
+                    new Reservation{ReservationId=Guid.NewGuid(), StartDate=DateTime.Parse("2021-10-11"), EndDate=DateTime.Parse("2021-10-25"), RoomId=context.Hotels.AsEnumerable<Hotel>().ElementAt(0).Rooms.ElementAt(3).RoomId, UserId=context.Users.AsEnumerable<User>().FirstOrDefault(u=>u.Email == "sten.erik.sundberg@gmail.com").UserId, IncludeAll=false, IncludeBreakfast=true, IncludePool=true, IncludeTransport=false },
+                    
                 };
                 foreach (Reservation r in reservations)
                 {

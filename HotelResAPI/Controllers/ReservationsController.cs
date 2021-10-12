@@ -99,12 +99,23 @@ namespace HotelResAPI.Controllers
         // POST: api/Reservations
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Reservation>> PostReservation(Reservation reservation)
+        public async Task<ActionResult> PostReservation(Reservation reservation)
         {
-            _context.Reservations.Add(reservation);
-            await _context.SaveChangesAsync();
+            try
+            {
+                reservation.ReservationId = Guid.NewGuid();
+                reservation.UserId = Guid.Parse(HttpContext.Items["extractId"].ToString());
+                _context.Reservations.Add(reservation);
+                await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetReservation", new { id = reservation.ReservationId }, reservation);
+                return Ok("Reservation created!");
+            }
+            catch(Exception epicFail)
+            {
+                return BadRequest(epicFail.Message);
+            }
+
+            
         }
 
         // DELETE: api/Reservations/5

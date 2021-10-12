@@ -48,7 +48,7 @@ namespace HotelResAPI.Controllers
                 
 
             var user = await _context.Users.FindAsync(id);
-            user.Reservations = await _context.Reservations.Where(r => r.UserId == user.UserId).ToListAsync();
+            user.Reservations = await _context.Reservations.Where(r => r.UserId == user.UserId).Include(reservation=>reservation.Room).ThenInclude(room=>room.Hotel).ToListAsync();
 
             if (user == null)
             {
@@ -100,7 +100,7 @@ namespace HotelResAPI.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok() ;
         }
 
         // POST: api/Users
@@ -130,7 +130,7 @@ namespace HotelResAPI.Controllers
         [HttpDelete]
         public async Task<IActionResult> DeleteUser()
         {
-            Guid id = Guid.Parse(HttpContext.Items["ExtractId"].ToString());
+            Guid id = Guid.Parse(HttpContext.Items["extractId"].ToString());
             var user = await _context.Users.FindAsync(id);
             if (user == null)
             {
