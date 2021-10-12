@@ -48,6 +48,7 @@ namespace HotelResAPI.Controllers
                 
 
             var user = await _context.Users.FindAsync(id);
+            user.Reservations = await _context.Reservations.Where(r => r.UserId == user.UserId).ToListAsync();
 
             if (user == null)
             {

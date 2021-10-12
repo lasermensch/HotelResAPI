@@ -30,10 +30,22 @@ namespace HotelResAPI.Controllers
         {
             string userId = HttpContext.Items["extractId"].ToString();
 
-            List<Reservation> usersReservations = await _context.Reservations.Where(r => r.UserId.ToString() == userId).ToListAsync();
+            List<Reservation> usersReservations = await _context.Reservations.Where(r => r.UserId.ToString() == userId).Include(res=> res.Room).ThenInclude(room=>room.Hotel).ToListAsync();
 
             return usersReservations;
         }
+        // GET: api/Reservations/by-hotel-id{hotelId}
+        [AllowAnonymous]
+        [HttpGet("by-hotel-id-{hotelId}")]
+        public async Task<ActionResult<IEnumerable<Reservation>>> GetReservations(Guid hotelId)
+        {
+            
+
+            List<Reservation> reservations = await _context.Reservations.Where(r => r.Room.HotelId == hotelId).Include(res=>res.Room).ToListAsync();
+
+            return reservations;
+        }
+
 
         // GET: api/Reservations/5
         [HttpGet("{id}")]
