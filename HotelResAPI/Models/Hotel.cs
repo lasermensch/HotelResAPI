@@ -24,7 +24,20 @@ namespace HotelResAPI.Models
         public double Rating { get; set; } = 0;
         [Required]
         public int NrOfVotes { get; set; } = 0;
-
+        [Required]
+        public int PriceSingleRoom { get; set; }
+        [Required]
+        public int PriceDoubleRoom { get; set; }
+        [Required]
+        public int PriceSuite { get; set; }
+        [Required]
+        public int PriceTransport { get; set; }
+        [Required]
+        public int PriceBreakfast { get; set; }
+        [Required]
+        public int PricePool { get; set; }
+        [Required]
+        public int PriceAllInclusive { get; set; }
 
 
         //Navprops

@@ -21,10 +21,10 @@ namespace HotelResAPI.Data
             {
                 Hotel[] hotels =
                 {
-                    new Hotel {HotelId = Guid.NewGuid(), HotelName="The Royal", Adress="Main Street 123, SomeTown", PhoneNr="+2100855512345", Email="theroyal@hotels.test", WebPage="theroyalhotel.test", NrOfVotes=498, Rating=4.4,},
-                    new Hotel {HotelId = Guid.NewGuid(), HotelName="The Mariner", Adress="Shore Street 4, SomeOtherTown", PhoneNr="+2100855512398", Email="themariner@hotels.test", WebPage="themarinerhotel.test", NrOfVotes=70, Rating=5.0,},
-                    new Hotel {HotelId = Guid.NewGuid(), HotelName="The Plaza", Adress="Centre Street 1, ThatBigCity", PhoneNr="+422085555678", Email="theplaza@hotels.test", WebPage="theplazahotel.test", NrOfVotes=34, Rating=4.34,},
-                    new Hotel {HotelId = Guid.NewGuid(), HotelName="The Proletarian", Adress="Peoples Street 95, MarxCity", PhoneNr="+378555849587", Email="theproletarian@hotels.test", WebPage="theproletarianhotel.test", NrOfVotes=67, Rating=2.7,},
+                    new Hotel {HotelId = Guid.NewGuid(), HotelName="The Royal", Adress="Main Street 123, SomeTown", PhoneNr="+2100855512345", Email="theroyal@hotels.test", WebPage="theroyalhotel.test", NrOfVotes=498, Rating=4.4, PriceAllInclusive=400, PriceBreakfast=150, PriceTransport=50, PricePool=100, PriceDoubleRoom=5600, PriceSingleRoom=4500, PriceSuite=7000},
+                    new Hotel {HotelId = Guid.NewGuid(), HotelName="The Mariner", Adress="Shore Street 4, SomeOtherTown", PhoneNr="+2100855512398", Email="themariner@hotels.test", WebPage="themarinerhotel.test", NrOfVotes=70, Rating=5.0, PriceAllInclusive=340, PriceBreakfast=150, PriceTransport=35, PricePool=95, PriceDoubleRoom=5200, PriceSingleRoom=4450, PriceSuite=6500},
+                    new Hotel {HotelId = Guid.NewGuid(), HotelName="The Plaza", Adress="Centre Street 1, ThatBigCity", PhoneNr="+422085555678", Email="theplaza@hotels.test", WebPage="theplazahotel.test", NrOfVotes=34, Rating=4.34, PriceAllInclusive=590, PriceBreakfast=169, PriceTransport=45, PricePool=119, PriceDoubleRoom=5790, PriceSingleRoom=4990, PriceSuite=7590},
+                    new Hotel {HotelId = Guid.NewGuid(), HotelName="The Proletarian", Adress="Peoples Street 95, MarxCity", PhoneNr="+378555849587", Email="theproletarian@hotels.test", WebPage="theproletarianhotel.test", NrOfVotes=67, Rating=2.7, PriceAllInclusive=300, PriceBreakfast=99, PriceTransport=49, PricePool=49, PriceDoubleRoom=3000, PriceSingleRoom=1990, PriceSuite=4000},
                 };
 
                 HotelImage[] hotelImages =
@@ -78,55 +78,36 @@ namespace HotelResAPI.Data
             {
                 Room[] rooms =
                 {
-                    new Room{RoomId=Guid.NewGuid(), HotelId=context.Hotels.AsEnumerable<Hotel>().ElementAt(0).HotelId, Price=4000, Size=0},
-                    new Room{RoomId=Guid.NewGuid(), HotelId=context.Hotels.AsEnumerable<Hotel>().ElementAt(0).HotelId, Price=4000, Size=0},
-                    //new Room{RoomId=Guid.NewGuid(), HotelId=context.Hotels.AsEnumerable<Hotel>().ElementAt(0).HotelId, Price=4000, Size=0},
-                    //new Room{RoomId=Guid.NewGuid(), HotelId=context.Hotels.AsEnumerable<Hotel>().ElementAt(0).HotelId, Price=4000, Size=0},
-                    new Room{RoomId=Guid.NewGuid(), HotelId=context.Hotels.AsEnumerable<Hotel>().ElementAt(0).HotelId, Price=6000, Size=1},
-                    //new Room{RoomId=Guid.NewGuid(), HotelId=context.Hotels.AsEnumerable<Hotel>().ElementAt(0).HotelId, Price=6000, Size=1},
-                    new Room{RoomId=Guid.NewGuid(), HotelId=context.Hotels.AsEnumerable<Hotel>().ElementAt(0).HotelId, Price=6000, Size=1},
-                    new Room{RoomId=Guid.NewGuid(), HotelId=context.Hotels.AsEnumerable<Hotel>().ElementAt(0).HotelId, Price=7500, Size=2},
-                    //new Room{RoomId=Guid.NewGuid(), HotelId=context.Hotels.AsEnumerable<Hotel>().ElementAt(0).HotelId, Price=7500, Size=2},
-                    //new Room{RoomId=Guid.NewGuid(), HotelId=context.Hotels.AsEnumerable<Hotel>().ElementAt(0).HotelId, Price=7500, Size=2},
-                    new Room{RoomId=Guid.NewGuid(), HotelId=context.Hotels.AsEnumerable<Hotel>().ElementAt(0).HotelId, Price=7500, Size=2},
+                    new Room{RoomId=Guid.NewGuid(), HotelId=context.Hotels.AsEnumerable<Hotel>().ElementAt(0).HotelId, Size=0},
+                    new Room{RoomId=Guid.NewGuid(), HotelId=context.Hotels.AsEnumerable<Hotel>().ElementAt(0).HotelId, Size=0},
+                    new Room{RoomId=Guid.NewGuid(), HotelId=context.Hotels.AsEnumerable<Hotel>().ElementAt(0).HotelId, Size=0},
+                    new Room{RoomId=Guid.NewGuid(), HotelId=context.Hotels.AsEnumerable<Hotel>().ElementAt(0).HotelId, Size=0},
+                    new Room{RoomId=Guid.NewGuid(), HotelId=context.Hotels.AsEnumerable<Hotel>().ElementAt(0).HotelId, Size=1},
+                    new Room{RoomId=Guid.NewGuid(), HotelId=context.Hotels.AsEnumerable<Hotel>().ElementAt(0).HotelId, Size=1},
+                    new Room{RoomId=Guid.NewGuid(), HotelId=context.Hotels.AsEnumerable<Hotel>().ElementAt(0).HotelId, Size=2},
+                    new Room{RoomId=Guid.NewGuid(), HotelId=context.Hotels.AsEnumerable<Hotel>().ElementAt(0).HotelId, Size=2},
 
-                    new Room{RoomId=Guid.NewGuid(), HotelId=context.Hotels.AsEnumerable<Hotel>().ElementAt(1).HotelId, Price=5000, Size=0},
-                    //new Room{RoomId=Guid.NewGuid(), HotelId=context.Hotels.AsEnumerable<Hotel>().ElementAt(1).HotelId, Price=5000, Size=0},
-                    //new Room{RoomId=Guid.NewGuid(), HotelId=context.Hotels.AsEnumerable<Hotel>().ElementAt(1).HotelId, Price=5000, Size=0},
-                    //new Room{RoomId=Guid.NewGuid(), HotelId=context.Hotels.AsEnumerable<Hotel>().ElementAt(1).HotelId, Price=5000, Size=0},
-                    new Room{RoomId=Guid.NewGuid(), HotelId=context.Hotels.AsEnumerable<Hotel>().ElementAt(1).HotelId, Price=7000, Size=1},
-                    new Room{RoomId=Guid.NewGuid(), HotelId=context.Hotels.AsEnumerable<Hotel>().ElementAt(1).HotelId, Price=7000, Size=1},
-                    //new Room{RoomId=Guid.NewGuid(), HotelId=context.Hotels.AsEnumerable<Hotel>().ElementAt(1).HotelId, Price=7000, Size=1},
-                    new Room{RoomId=Guid.NewGuid(), HotelId=context.Hotels.AsEnumerable<Hotel>().ElementAt(1).HotelId, Price=8700, Size=2},
-                    new Room{RoomId=Guid.NewGuid(), HotelId=context.Hotels.AsEnumerable<Hotel>().ElementAt(1).HotelId, Price=8700, Size=2},
-                    //new Room{RoomId=Guid.NewGuid(), HotelId=context.Hotels.AsEnumerable<Hotel>().ElementAt(1).HotelId, Price=8700, Size=2},
-                    //new Room{RoomId=Guid.NewGuid(), HotelId=context.Hotels.AsEnumerable<Hotel>().ElementAt(1).HotelId, Price=8700, Size=2},
-
-                    new Room{RoomId=Guid.NewGuid(), HotelId=context.Hotels.AsEnumerable<Hotel>().ElementAt(2).HotelId, Price=3900, Size=0},
-                    new Room{RoomId=Guid.NewGuid(), HotelId=context.Hotels.AsEnumerable<Hotel>().ElementAt(2).HotelId, Price=3900, Size=0},
-                    //new Room{RoomId=Guid.NewGuid(), HotelId=context.Hotels.AsEnumerable<Hotel>().ElementAt(2).HotelId, Price=3900, Size=0},
-                    //new Room{RoomId=Guid.NewGuid(), HotelId=context.Hotels.AsEnumerable<Hotel>().ElementAt(2).HotelId, Price=3900, Size=0},
-                    //new Room{RoomId=Guid.NewGuid(), HotelId=context.Hotels.AsEnumerable<Hotel>().ElementAt(2).HotelId, Price=4800, Size=1},
-                    //new Room{RoomId=Guid.NewGuid(), HotelId=context.Hotels.AsEnumerable<Hotel>().ElementAt(2).HotelId, Price=4800, Size=1},
-                    //new Room{RoomId=Guid.NewGuid(), HotelId=context.Hotels.AsEnumerable<Hotel>().ElementAt(2).HotelId, Price=4800, Size=1},
-                    new Room{RoomId=Guid.NewGuid(), HotelId=context.Hotels.AsEnumerable<Hotel>().ElementAt(2).HotelId, Price=4800, Size=1},
-                    //new Room{RoomId=Guid.NewGuid(), HotelId=context.Hotels.AsEnumerable<Hotel>().ElementAt(2).HotelId, Price=4800, Size=1},
-                    new Room{RoomId=Guid.NewGuid(), HotelId=context.Hotels.AsEnumerable<Hotel>().ElementAt(2).HotelId, Price=4800, Size=1},
-                    new Room{RoomId=Guid.NewGuid(), HotelId=context.Hotels.AsEnumerable<Hotel>().ElementAt(2).HotelId, Price=7000, Size=2},
-                    //new Room{RoomId=Guid.NewGuid(), HotelId=context.Hotels.AsEnumerable<Hotel>().ElementAt(2).HotelId, Price=7000, Size=2},
-
-                    new Room{RoomId=Guid.NewGuid(), HotelId=context.Hotels.AsEnumerable<Hotel>().ElementAt(3).HotelId, Price=400, Size=0},
-                    //new Room{RoomId=Guid.NewGuid(), HotelId=context.Hotels.AsEnumerable<Hotel>().ElementAt(3).HotelId, Price=400, Size=0},
-                    //new Room{RoomId=Guid.NewGuid(), HotelId=context.Hotels.AsEnumerable<Hotel>().ElementAt(3).HotelId, Price=400, Size=0},
-                    //new Room{RoomId=Guid.NewGuid(), HotelId=context.Hotels.AsEnumerable<Hotel>().ElementAt(3).HotelId, Price=400, Size=0},
-                    new Room{RoomId=Guid.NewGuid(), HotelId=context.Hotels.AsEnumerable<Hotel>().ElementAt(3).HotelId, Price=400, Size=0},
-                    new Room{RoomId=Guid.NewGuid(), HotelId=context.Hotels.AsEnumerable<Hotel>().ElementAt(3).HotelId, Price=400, Size=0},
-                    //new Room{RoomId=Guid.NewGuid(), HotelId=context.Hotels.AsEnumerable<Hotel>().ElementAt(3).HotelId, Price=600, Size=1},
-                    //new Room{RoomId=Guid.NewGuid(), HotelId=context.Hotels.AsEnumerable<Hotel>().ElementAt(3).HotelId, Price=600, Size=1},
-                    //new Room{RoomId=Guid.NewGuid(), HotelId=context.Hotels.AsEnumerable<Hotel>().ElementAt(3).HotelId, Price=600, Size=1},
-                    new Room{RoomId=Guid.NewGuid(), HotelId=context.Hotels.AsEnumerable<Hotel>().ElementAt(3).HotelId, Price=600, Size=1},
-                    new Room{RoomId=Guid.NewGuid(), HotelId=context.Hotels.AsEnumerable<Hotel>().ElementAt(3).HotelId, Price=600, Size=1},
-                    new Room{RoomId=Guid.NewGuid(), HotelId=context.Hotels.AsEnumerable<Hotel>().ElementAt(3).HotelId, Price=900, Size=2},
+                    new Room{RoomId=Guid.NewGuid(), HotelId=context.Hotels.AsEnumerable<Hotel>().ElementAt(1).HotelId, Size=0},
+                    new Room{RoomId=Guid.NewGuid(), HotelId=context.Hotels.AsEnumerable<Hotel>().ElementAt(1).HotelId, Size=0},
+                    new Room{RoomId=Guid.NewGuid(), HotelId=context.Hotels.AsEnumerable<Hotel>().ElementAt(1).HotelId, Size=0},
+                    new Room{RoomId=Guid.NewGuid(), HotelId=context.Hotels.AsEnumerable<Hotel>().ElementAt(1).HotelId, Size=1},
+                    new Room{RoomId=Guid.NewGuid(), HotelId=context.Hotels.AsEnumerable<Hotel>().ElementAt(1).HotelId, Size=1},
+                    new Room{RoomId=Guid.NewGuid(), HotelId=context.Hotels.AsEnumerable<Hotel>().ElementAt(1).HotelId, Size=1},
+                    new Room{RoomId=Guid.NewGuid(), HotelId=context.Hotels.AsEnumerable<Hotel>().ElementAt(1).HotelId, Size=2},
+                    
+                    new Room{RoomId=Guid.NewGuid(), HotelId=context.Hotels.AsEnumerable<Hotel>().ElementAt(2).HotelId, Size=0},
+                    new Room{RoomId=Guid.NewGuid(), HotelId=context.Hotels.AsEnumerable<Hotel>().ElementAt(2).HotelId, Size=0},
+                    new Room{RoomId=Guid.NewGuid(), HotelId=context.Hotels.AsEnumerable<Hotel>().ElementAt(2).HotelId, Size=1},
+                    new Room{RoomId=Guid.NewGuid(), HotelId=context.Hotels.AsEnumerable<Hotel>().ElementAt(2).HotelId, Size=1},
+                    new Room{RoomId=Guid.NewGuid(), HotelId=context.Hotels.AsEnumerable<Hotel>().ElementAt(2).HotelId, Size=2},
+                    
+                    
+                    new Room{RoomId=Guid.NewGuid(), HotelId=context.Hotels.AsEnumerable<Hotel>().ElementAt(3).HotelId, Size=0},
+                    new Room{RoomId=Guid.NewGuid(), HotelId=context.Hotels.AsEnumerable<Hotel>().ElementAt(3).HotelId, Size=0},
+                    new Room{RoomId=Guid.NewGuid(), HotelId=context.Hotels.AsEnumerable<Hotel>().ElementAt(3).HotelId, Size=0},
+                    new Room{RoomId=Guid.NewGuid(), HotelId=context.Hotels.AsEnumerable<Hotel>().ElementAt(3).HotelId, Size=1},
+                    new Room{RoomId=Guid.NewGuid(), HotelId=context.Hotels.AsEnumerable<Hotel>().ElementAt(3).HotelId, Size=1},
+                    new Room{RoomId=Guid.NewGuid(), HotelId=context.Hotels.AsEnumerable<Hotel>().ElementAt(3).HotelId, Size=2},
                 };
 
                 foreach (Room r in rooms)
