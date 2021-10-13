@@ -58,18 +58,7 @@ namespace HotelResAPI.Controllers
             user.Password = "";
             return user;
         }
-        //[HttpGet("userfromtoken")]
-        //public async Task<ActionResult<User>> GetUserFromToken()
-        //{
-        //    Guid id = Guid.Parse(HttpContext.Items["extractId"].ToString());
 
-        //    User u = await _context.Users.FindAsync(id);
-
-        //    if (u == null)
-        //        return NotFound();
-
-        //    return u;
-        //}
 
         // PUT: api/Users/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754

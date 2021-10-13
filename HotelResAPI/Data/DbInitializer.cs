@@ -5,6 +5,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mime;
 using System.Reflection.Metadata.Ecma335;
 using System.Threading.Tasks;
 
@@ -123,7 +124,7 @@ namespace HotelResAPI.Data
                 Reservation[] reservations =
                 {
                     
-                    new Reservation{ReservationId=Guid.NewGuid(), StartDate=DateTime.Parse("2021-10-11"), EndDate=DateTime.Parse("2021-10-18"), RoomId=context.Hotels.AsEnumerable<Hotel>().ElementAt(0).Rooms.ElementAt(2).RoomId, UserId=context.Users.AsEnumerable<User>().ElementAt(2).UserId, IncludeAll=false, IncludeBreakfast=true, IncludePool=true, IncludeTransport=false },
+                    new Reservation{ReservationId=Guid.NewGuid(), StartDate=DateTime.Parse("2021-10-11"), EndDate=DateTime.Parse("2021-10-18"), RoomId=context.Hotels.AsEnumerable<Hotel>().ElementAt(0).Rooms.ElementAt(2).RoomId, UserId=context.Users.AsEnumerable<User>().ElementAt(2).UserId, IncludeAll=false, IncludeBreakfast=true, IncludePool=true, IncludeTransport=false},
                     new Reservation{ReservationId=Guid.NewGuid(), StartDate=DateTime.Parse("2021-10-11"), EndDate=DateTime.Parse("2021-10-25"), RoomId=context.Hotels.AsEnumerable<Hotel>().ElementAt(1).Rooms.ElementAt(2).RoomId, UserId=context.Users.AsEnumerable<User>().ElementAt(1).UserId, IncludeAll=false, IncludeBreakfast=true, IncludePool=true, IncludeTransport=false },
                     new Reservation{ReservationId=Guid.NewGuid(), StartDate=DateTime.Parse("2021-11-11"), EndDate=DateTime.Parse("2021-11-25"), RoomId=context.Hotels.AsEnumerable<Hotel>().ElementAt(3).Rooms.ElementAt(2).RoomId, UserId=context.Users.AsEnumerable<User>().ElementAt(1).UserId, IncludeAll=false, IncludeBreakfast=true, IncludePool=true, IncludeTransport=false },
                     new Reservation{ReservationId=Guid.NewGuid(), StartDate=DateTime.Parse("2021-12-11"), EndDate=DateTime.Parse("2021-12-18"), RoomId=context.Hotels.AsEnumerable<Hotel>().ElementAt(0).Rooms.ElementAt(2).RoomId, UserId=context.Users.AsEnumerable<User>().ElementAt(0).UserId, IncludeAll=true, IncludeBreakfast=true, IncludePool=false, IncludeTransport=false },
@@ -137,10 +138,35 @@ namespace HotelResAPI.Data
                 };
                 foreach (Reservation r in reservations)
                 {
+                    r.Room = context.Rooms.First(room => room.RoomId == r.RoomId);
+                    r.Room.Hotel = context.Hotels.First(hotel => hotel.HotelId == r.Room.HotelId);
+                    r.TotalAmount = CalculateTotAm(r);
                     context.Reservations.Add(r);
                 }
                 context.SaveChanges();
             }
         }
+        private static int CalculateTotAm(Reservation r)
+        {
+            int totam = 0;
+            if (r.Room.Size == 0)
+                totam += r.Room.Hotel.PriceSingleRoom;
+            else if (r.Room.Size == 1)
+                totam += r.Room.Hotel.PriceDoubleRoom;
+            else if (r.Room.Size == 2)
+                totam += r.Room.Hotel.PriceSuite;
+
+            if (r.IncludeAll)
+                totam += r.Room.Hotel.PriceAllInclusive;
+            if (r.IncludeBreakfast)
+                totam += r.Room.Hotel.PriceBreakfast;
+            if (r.IncludeTransport)
+                totam += r.Room.Hotel.PriceTransport;
+            if (r.IncludePool)
+                totam += r.Room.Hotel.PricePool;
+
+            return totam;
+        }
     }
+    
 }
