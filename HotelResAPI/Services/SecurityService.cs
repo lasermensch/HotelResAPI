@@ -88,7 +88,7 @@ namespace HotelResAPI.Services
             SHA256Managed sHA256Managed = new SHA256Managed();
             byte[] bytes = Encoding.UTF8.GetBytes(password + salt);
             byte[] hash = sHA256Managed.ComputeHash(bytes);
-            var compHash = Convert.ToBase64String(hash);
+            string compHash = Convert.ToBase64String(hash);
             return compHash;
         }
         public static string getSalt()
