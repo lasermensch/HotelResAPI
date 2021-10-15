@@ -23,7 +23,8 @@
   - Microsoft.VisualStudio.Web.CodeGeneration.Design v5.0.2
 - Modell-klasser för att hantera data över många tabeller i databasen.
 - Kontroller för att sköta indata och utdata med json.
-- Appsettings-singleton ligger i models-mappen och används för att hantera nycklar. Denna är placerad där av organisationsskäl och inte för att den egentligen är en
+- Appsettings-singleton ligger i models-mappen och används för att hantera nycklar. Denna är placerad där av organisationsskäl och inte för att den egentligen är en modellklass.
+- I Services finns både klassen som hanterar krypteringsmetoder och även filen som hanterar autentiseringsfilter.
 - programmet är en del av en större arkitektur. Detta är API-delen:
 
 ![Arkitektur](CompleteArchitecture.png)
